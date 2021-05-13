@@ -1,7 +1,6 @@
 import binascii
 import struct
 import os
-import time
 
 # 一个神奇的数学原理，所以，只要用原先压缩过的dat文件的值进行开头的异或，就能知道值了
 # DA = A ^ K
@@ -46,15 +45,6 @@ def BytToStr(string):
         hexs.append(s)
     return hexs
 
-def GetTimeStamp():
-    # 网上找的，使用当前时间作为文件名
-    ct = time.time()
-    local_time = time.localtime(ct)
-    data_head = time.strftime("%Y%m%d%H%M%S", local_time)
-    data_secs = (ct - int(ct)) * 1000
-    time_stamp = "%s_%03d" % (data_head, data_secs)
-    return time_stamp
-
 def change(file1):
     f1 = open(r'%s'%file1,'rb')
     
@@ -71,7 +61,7 @@ def change(file1):
 
     answer = Xor(ciphertext,key)
 
-    filename = GetTimeStamp()
+    filename = file1[:-4]
     
     with open(r"%s.%s" % (filename, kind),"ab+") as fout:
         for i in answer:
@@ -93,5 +83,5 @@ def RecursiveFileSearch(path):
 
 
 if __name__ == "__main__":
-    path  = input()
+    path  = input("请输入文件夹或文件位置，支持自动递归解码，解码完成后的图片会保存在原来dat文件的位置")
     RecursiveFileSearch(path)
