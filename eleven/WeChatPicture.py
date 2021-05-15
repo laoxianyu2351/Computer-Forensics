@@ -38,7 +38,7 @@ def Xor(ciphertext,key):
         answer.append(i)
     return answer
 
-def BytToStr(string):
+def BytToInt(string):
     """此函数的作用就是将读取到的16进制字符流变成正常的字符列表，方便后面的异或"""
     hexs = []
     for s in string:
@@ -57,7 +57,7 @@ def change(file1):
     byte = f1.read(length)
     # 将读取到的内容先全部放入一个变量里面
 
-    ciphertext = BytToStr(byte)
+    ciphertext = BytToInt(byte)
 
     answer = Xor(ciphertext,key)
 
@@ -83,5 +83,5 @@ def RecursiveFileSearch(path):
 
 
 if __name__ == "__main__":
-    path  = input("请输入文件夹或文件位置，支持自动递归解码，解码完成后的图片会保存在原来dat文件的位置")
+    path  = input("请输入文件夹或文件位置，支持自动递归解码，解码完成后的图片会保存在原来dat文件的位置\n")
     RecursiveFileSearch(path)
